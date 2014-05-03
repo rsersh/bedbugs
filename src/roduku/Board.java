@@ -2,12 +2,6 @@ package roduku;
 
 import java.util.Random;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author rrs
@@ -19,15 +13,20 @@ public class Board {
     private static int [][]boardmatrix;
     int[] numberArray = new int[9];
     //int magicnumber = 9;
-        
-    public Board(int rownum, int colnum) {
+    
+    
+    public Board(int rownum, int column) {
         Board.rows = rownum;
         //check values of rows and columns are either 3 or 9 ?
-        Board.cols = colnum;
-        initializeBoard(rows,cols);
-        
+        Board.cols = column;
+        initializeBoard(rows,cols);   
     } 
     
+    
+    /* Creates an empty board of zeros.
+     * @param r - number of rows on board
+     * @param c - number of cols on board
+     */
     public static void initializeBoard(int r, int c) {
         boardmatrix = new int[r][c];
         int i = 0;
@@ -40,14 +39,12 @@ public class Board {
             i++;
         }
     } 
-    
-    //returns true if successful
 
     /**
-     *
-     * @param num
-     * @param row
-     * @param col
+     * Adds the user's entry to the board.
+     * @param num - user number 
+     * @param row - row on board in which to input num
+     * @param col - column on board in which to input num
      */
    public void addEntry(int num, int row, int col) {
         if ( (num < 10) && (num > 0)) {
@@ -56,11 +53,10 @@ public class Board {
         
     }
     
+   /*  Fills a board with non-repeating numbers 
+    *  between 1 and 9.
+    */
     public void setBoard() {
-        /*ideally it will create a board of numbers
-          randomly and then make sure it hasn't already
-          been used
-        */
         genNumbers();
         int k=0;
         while (k<9) {
@@ -70,25 +66,15 @@ public class Board {
                     k++;
                 }
             }
-            //k++;
-        }
-        /*
-        addEntry(3, 0, 0);
-        addEntry(9, 0, 1);
-        addEntry(4, 0, 2);
-        addEntry(1, 1, 0);
-        addEntry(7, 1, 1);
-        addEntry(5, 1, 2);
-        addEntry(6, 2, 0);
-        addEntry(2, 2, 1);
-        addEntry(8, 2, 2);
-        */
+            
+        }      
         viewBoard();
     }
     
-    /*
-      called by genNumbers();
-    */
+    /*  Called by genNumbers() to initialize the
+     *  numberArray with non-repeating numbers
+     *  1-9.
+     */
     public void initializeArray() {
         int len = numberArray.length;
         for (int j=0; j<len; j++) {
@@ -98,9 +84,10 @@ public class Board {
         
     }
         
-    /*returns 1 if num is in array
-      called by genNumbers();
-    */
+    /*  Called by genNumbers(). 
+     *  Return: 1 if num is in numberArray
+     *          0 if num is not in numberArray
+     */
     public int checkArray(int num) {
         if (num == 0) {
             return 0;
@@ -114,16 +101,10 @@ public class Board {
         return 0;
     }
     
-    /*
-       called by setBoard();
-    */
+    /*  Called by setBoard() for generating numbers
+     *  for the board.
+     */
     public void genNumbers() {
-        /*ideally it will create a board of numbers
-          randomly and then make sure it hasn't already
-          been used
-        */
-        
-        //needs to be seeded for a random set of randoms
         Random numberGen = new Random();
         
         initializeArray();
@@ -136,21 +117,14 @@ public class Board {
             }
                 numberArray[i] = number;
             }
-            //System.out.println(number);
+           
         
-        //for testing
+        /* for testing
         for (int k=0; k<9; k++) {
             System.out.println(numberArray[k]);
         }
-
+        */
     }
-   
-    /*
-    need function that would define small medium and hard
-    levels that will create holes or "disappear" some numbers
-    on the board based on the level. should end with viewBoard
-    ? leaves ready for user to enter a number
-    */
     
     public static void viewBoard(){
         int i = 0;
@@ -170,9 +144,16 @@ public class Board {
             i++;
             
         }      
+
     }
 
-    
+
+ /*
+  *  need function that would define small medium and hard
+  *  levels that will create holes or "disappear" some numbers
+  *  on the board based on the level. should end with viewBoard
+  *  ? leaves ready for user to enter a number
+  */    
 
     public static void main(String[] args) {
         Board newBoard = new Board(3,3);
@@ -182,7 +163,6 @@ public class Board {
        // newBoard.setBoard(); 
        // newBoard.genNumbers();
         newBoard.setBoard();
-        
     }
   
 }
